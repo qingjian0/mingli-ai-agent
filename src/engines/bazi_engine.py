@@ -9,6 +9,9 @@ from ..utils.bazi_utils import (
     get_year_stem, get_month_stem, get_day_stem_branch, get_hour_stem,
     calculate_shishen, get_nayin
 )
+from ..utils.dayun_utils import (
+    calculate_dayun, calculate_liunian, get_current_dayun, analyze_dayun_liunian
+)
 
 
 class BaziEngine(BaseEngine):
@@ -190,3 +193,130 @@ class BaziEngine(BaseEngine):
                     wuxing_counts[wuxing] += val
         
         return wuxing_counts
+    
+    def calculate_dayun(self, birth_date: datetime, gender: str = "男") -> Dict[str, Any]:
+        """
+        计算大运
+        
+        Args:
+            birth_date: 出生日期
+            gender: 性别（"男"或"女"）
+        
+        Returns:
+            大运计算结果
+        """
+        try:
+            lunar_date, solar_term = self._convert_to_lunar(birth_date)
+            year_stem, year_branch = self._calculate_year_pillar(lunar_date)
+            month_stem, month_branch = self._calculate_month_pillar(lunar_date, solar_term)
+            day_stem, day_branch = self._calculate_day_pillar(birth_date)
+            
+            dayun_result = calculate_dayun(
+                daymaster=day_stem,
+                month_stem=month_stem,
+                month_branch=month_branch,
+                gender=gender,
+                birth_year=birth_date.year
+            )
+            
+            self.add_reasoning_step(
+                rule_id="bazi.dayun.calculate",
+                description="计算大运",
+                input_data={"daymaster": day_stem, "month": month_stem + month_branch, "gender": gender},
+                output_data={"direction": dayun_result["direction"], "start_age": dayun_result["start_age"]},
+                confidence=0.95
+            )
+            
+            return {
+                "success": True,
+                "dayun": dayun_result,
+                "reasoning_chain": [step.to_dict() for step in self.get_reasoning_chain()]
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e),
+                "dayun": {}
+            }
+    
+    def calculate_liunian(self, birth_year: int, current_age: int, years: int = 10) -> Dict[str, Any]:
+        """
+        计算流年
+        
+        Args:
+            birth_year: 出生年份
+            current_age: 当前年龄
+            years: 计算年数
+        
+        Returns:
+            流年计算结果
+        """
+        try:
+            liunian_list = calculate_liunian(birth_year, current_age, years)
+            
+            self.add_reasoning_step(
+                rule_id="bazi.liunian.calculate",
+                description="计算流年",
+                input_data={"birth_year": birth_year, "current_age": current_age, "years": years},
+                output_data={"liunian_count": len(liunian_list)},
+                confidence=1.0
+            )
+            
+            return {
+                "success": True,
+                "liunian": liunian_list,
+                "reasoning_chain": [step.to_dict() for step in self.get_reasoning_chain()]
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e),
+                "liunian": []
+            }
+    
+    def calculate_dayun_liunian(self, birth_date: datetime, gender: str = "男", 
+                                current_age: int = 30) -> Dict[str, Any]:
+        """
+        综合计算大运流年
+        
+        Args:
+            birth_date: 出生日期
+            gender: 性别
+            current_age: 当前年龄
+        
+        Returns:
+            综合分析结果
+        """
+        try:
+            # 计算大运
+            dayun_result = self.calculate_dayun(birth_date, gender)
+            
+            # 计算流年
+            liunian_result = self.calculate_liunian(birth_date.year, current_age, 10)
+            
+            # 获取当前大运
+            current_dayun = get_current_dayun(
+                dayun_result.get("dayun", {}).get("dayun_list", []),
+                current_age
+            )
+            
+            # 分析当前大运与流年关系
+            analysis_list = []
+            for liunian in liunian_result.get("liunian", []):
+                daymaster = self.calculate(birth_date, "12:00", "UTC+8", "").result.get("daymaster", "")
+                analysis = analyze_dayun_liunian(current_dayun, liunian, daymaster)
+                analysis_list.append(analysis)
+            
+            return {
+                "success": True,
+                "dayun": dayun_result.get("dayun", {}),
+                "liunian": liunian_result.get("liunian", []),
+                "current_dayun": current_dayun,
+                "analysis": analysis_list,
+                "reasoning_chain": [step.to_dict() for step in self.get_reasoning_chain()]
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
