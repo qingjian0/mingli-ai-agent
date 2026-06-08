@@ -1,0 +1,72 @@
+
+{
+    "version": "1.0.0",
+    "domain": "liuren",
+    "source": "《大六壬指南》《大六壬统宗》",
+    "rules": [
+        {
+            "rule_id": "liuren.yuejiang",
+            "name": "十二月将",
+            "description": "大六壬十二月将",
+            "priority": 100,
+            "content": {
+                "亥": "登明",
+                "戌": "河魁",
+                "酉": "从魁",
+                "申": "传送",
+                "未": "小吉",
+                "午": "胜光",
+                "巳": "太乙",
+                "辰": "天罡",
+                "卯": "太冲",
+                "寅": "功曹",
+                "丑": "大吉",
+                "子": "神后"
+            }
+        },
+        {
+            "rule_id": "liuren.guishen",
+            "name": "十二贵神",
+            "description": "大六壬十二贵神",
+            "priority": 100,
+            "content": [
+                {"name": "贵", "description": "天乙贵人"},
+                {"name": "螣蛇", "description": "螣蛇"},
+                {"name": "朱雀", "description": "朱雀"},
+                {"name": "六合", "description": "六合"},
+                {"name": "勾陈", "description": "勾陈"},
+                {"name": "青龙", "description": "青龙"},
+                {"name": "天空", "description": "天空"},
+                {"name": "白虎", "description": "白虎"},
+                {"name": "玄武", "description": "玄武"},
+                {"name": "太常", "description": "太常"},
+                {"name": "太阴", "description": "太阴"},
+                {"name": "天后", "description": "天后"}
+            ]
+        },
+        {
+            "rule_id": "liuren.liuqin",
+            "name": "六亲",
+            "description": "大六壬六亲关系",
+            "priority": 100,
+            "content": {
+                "父母": "生我者",
+                "兄弟": "比和者",
+                "子孙": "我生者",
+                "妻财": "我克者",
+                "官鬼": "克我者"
+            }
+        },
+        {
+            "rule_id": "liuren.sanchuan",
+            "name": "三传",
+            "description": "大六壬三传顺序",
+            "priority": 95,
+            "content": {
+                "初传": "发端",
+                "中传": "移易",
+                "末传": "归计"
+            }
+        }
+    ]
+}
