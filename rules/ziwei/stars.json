@@ -1,0 +1,44 @@
+
+{
+  "version": "1.0.0",
+  "domain": "ziwei",
+  "source": "《紫微斗数全书》",
+  "stars": {
+    "main": [
+      {"name": "紫微", "type": "emperor", "element": "土", "description": "帝王之星，尊贵权威"},
+      {"name": "天机", "type": "mercurial", "element": "木", "description": "智慧之星，思维敏捷"},
+      {"name": "太阳", "type": "yang", "element": "火", "description": "光明之星，热情正直"},
+      {"name": "武曲", "type": "martial", "element": "金", "description": "武勇之星，刚强果断"},
+      {"name": "天同", "type": "benevolent", "element": "水", "description": "福星，温和享受"},
+      {"name": "廉贞", "type": "righteous", "element": "火", "description": "清正之星，处事公正"},
+      {"name": "天府", "type": "treasury", "element": "土", "description": "财富之星，稳重可靠"},
+      {"name": "太阴", "type": "yin", "element": "水", "description": "阴柔之星，温柔细腻"},
+      {"name": "贪狼", "type": "greedy", "element": "木", "description": "欲望之星，多才多艺"},
+      {"name": "巨门", "type": "door", "element": "土", "description": "口舌之星，善于辩论"},
+      {"name": "天相", "type": "minister", "element": "水", "description": "辅佐之星，相貌端正"},
+      {"name": "天梁", "type": "beam", "element": "土", "description": "荫护之星，乐于助人"},
+      {"name": "七杀", "type": "killer", "element": "金", "description": "肃杀之星，性格刚强"},
+      {"name": "破军", "type": "breaker", "element": "水", "description": "变革之星，敢于革新"}
+    ],
+    "auxiliary": [
+      {"name": "左辅", "type": "assistant", "description": "辅佐之星"},
+      {"name": "右弼", "type": "assistant", "description": "辅佐之星"},
+      {"name": "文昌", "type": "literary", "description": "文星"},
+      {"name": "文曲", "type": "literary", "description": "文星"},
+      {"name": "天魁", "type": "honor", "description": "贵星"},
+      {"name": "天钺", "type": "honor", "description": "贵星"}
+    ],
+    "four_horsemen": [
+      {"name": "擎羊", "type": "evil", "description": "刑伤之星"},
+      {"name": "陀罗", "type": "evil", "description": "纠缠之星"},
+      {"name": "火星", "type": "evil", "description": "火气之星"},
+      {"name": "铃星", "type": "evil", "description": "铃声之星"}
+    ],
+    "others": [
+      {"name": "禄存", "type": "wealth", "description": "财星"},
+      {"name": "天马", "type": "travel", "description": "驿马"},
+      {"name": "天刑", "type": "punishment", "description": "刑罚之星"},
+      {"name": "天姚", "type": "romance", "description": "桃花之星"}
+    ]
+  }
+}

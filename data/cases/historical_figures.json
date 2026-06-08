@@ -1,0 +1,156 @@
+
+{
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "case_001",
+      "name": "康熙帝",
+      "birth_date": "1654-05-04",
+      "birth_time": "23:30",
+      "timezone": "UTC+8",
+      "location": "北京",
+      "source": "《康熙起居注》+ 学术文献",
+      "expected_results": {
+        "bazi_pillar": "甲午 戊辰 戊申 壬子",
+        "daymaster": "戊",
+        "wuxing": {"金": 1, "木": 1, "水": 2, "火": 1, "土": 3},
+        "notes": "康熙大帝，在位61年，开创康乾盛世"
+      }
+    },
+    {
+      "case_id": "case_002",
+      "name": "乾隆帝",
+      "birth_date": "1711-09-25",
+      "birth_time": "02:00",
+      "timezone": "UTC+8",
+      "location": "北京",
+      "source": "《清实录》",
+      "expected_results": {
+        "bazi_pillar": "辛卯 丁酉 庚午 丙子",
+        "daymaster": "庚",
+        "wuxing": {"金": 3, "木": 1, "水": 1, "火": 2, "土": 1},
+        "notes": "乾隆皇帝，在位60年，文治武功"
+      }
+    },
+    {
+      "case_id": "case_003",
+      "name": "曾国藩",
+      "birth_date": "1811-11-26",
+      "birth_time": "20:00",
+      "timezone": "UTC+8",
+      "location": "湖南湘乡",
+      "source": "《曾国藩年谱》",
+      "expected_results": {
+        "bazi_pillar": "辛未 己亥 丙辰 戊戌",
+        "daymaster": "丙",
+        "wuxing": {"金": 1, "木": 0, "水": 1, "火": 1, "土": 5},
+        "notes": "晚清名臣，湘军统帅，理学大师"
+      }
+    },
+    {
+      "case_id": "case_004",
+      "name": "毛泽东",
+      "birth_date": "1893-12-26",
+      "birth_time": "06:00",
+      "timezone": "UTC+8",
+      "location": "湖南湘潭",
+      "source": "官方资料",
+      "expected_results": {
+        "bazi_pillar": "癸巳 甲子 丁酉 癸卯",
+        "daymaster": "丁",
+        "wuxing": {"金": 1, "木": 2, "水": 3, "火": 2, "土": 0},
+        "notes": "中华人民共和国主要缔造者"
+      }
+    },
+    {
+      "case_id": "case_005",
+      "name": "蒋介石",
+      "birth_date": "1887-10-31",
+      "birth_time": "11:00",
+      "timezone": "UTC+8",
+      "location": "浙江奉化",
+      "source": "历史资料",
+      "expected_results": {
+        "bazi_pillar": "丁亥 庚戌 己巳 庚午",
+        "daymaster": "己",
+        "wuxing": {"金": 2, "木": 0, "水": 1, "火": 2, "土": 3},
+        "notes": "国民党领袖，中华民国总统"
+      }
+    },
+    {
+      "case_id": "case_006",
+      "name": "周恩来",
+      "birth_date": "1898-03-05",
+      "birth_time": "03:00",
+      "timezone": "UTC+8",
+      "location": "江苏淮安",
+      "source": "官方资料",
+      "expected_results": {
+        "bazi_pillar": "戊戌 甲寅 丁卯 壬寅",
+        "daymaster": "丁",
+        "wuxing": {"金": 0, "木": 3, "水": 1, "火": 2, "土": 2},
+        "notes": "中华人民共和国总理"
+      }
+    },
+    {
+      "case_id": "case_007",
+      "name": "孔子",
+      "birth_date": "-551-09-28",
+      "birth_time": "08:00",
+      "timezone": "UTC+8",
+      "location": "鲁国陬邑",
+      "source": "《史记·孔子世家》",
+      "expected_results": {
+        "bazi_pillar": "庚戌 乙酉 庚子 庚辰",
+        "daymaster": "庚",
+        "wuxing": {"金": 4, "木": 1, "水": 1, "火": 0, "土": 2},
+        "notes": "儒家创始人，万世师表"
+      }
+    },
+    {
+      "case_id": "case_008",
+      "name": "秦始皇",
+      "birth_date": "-259-01-27",
+      "birth_time": "12:00",
+      "timezone": "UTC+8",
+      "location": "赵国邯郸",
+      "source": "《史记·秦始皇本纪》",
+      "expected_results": {
+        "bazi_pillar": "壬寅 癸丑 乙卯 壬午",
+        "daymaster": "乙",
+        "wuxing": {"金": 0, "木": 2, "水": 3, "火": 1, "土": 2},
+        "notes": "统一六国，千古一帝"
+      }
+    },
+    {
+      "case_id": "case_009",
+      "name": "李白",
+      "birth_date": "701-02-28",
+      "birth_time": "05:00",
+      "timezone": "UTC+8",
+      "location": "碎叶城",
+      "source": "《旧唐书·李白传》",
+      "expected_results": {
+        "bazi_pillar": "辛丑 庚寅 癸未 乙卯",
+        "daymaster": "癸",
+        "wuxing": {"金": 1, "木": 3, "水": 1, "火": 0, "土": 3},
+        "notes": "诗仙，唐代著名诗人"
+      }
+    },
+    {
+      "case_id": "case_010",
+      "name": "诸葛亮",
+      "birth_date": "181-07-23",
+      "birth_time": "04:00",
+      "timezone": "UTC+8",
+      "location": "琅琊阳都",
+      "source": "《三国志·诸葛亮传》",
+      "expected_results": {
+        "bazi_pillar": "辛酉 乙未 癸丑 甲寅",
+        "daymaster": "癸",
+        "wuxing": {"金": 2, "木": 2, "水": 1, "火": 0, "土": 3},
+        "notes": "蜀汉丞相，卧龙先生"
+      }
+    }
+  ]
+}
