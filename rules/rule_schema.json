@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RuleItem",
+  "type": "object",
+  "properties": {
+    "rule_id": {"type": "string"},
+    "domain": {"type": "string", "description": "bazi|ziwei|qimen|liuren|meihua|liuyao|taiyi"},
+    "rule_type": {"type": "string", "description": "calculation|inference|mapping|priority|validation"},
+    "description": {"type": "string"},
+    "conditions": {"type": "object", "description": "structured condition tree (AND/OR/NOT)"},
+    "actions": {"type": "object", "description": "what to infer/assign if conditions match"},
+    "priority": {"type": "integer", "minimum": 0, "default": 100},
+    "references": {"type": "array", "items": {"type": "string"}},
+    "source": {"type": "string"},
+    "version": {"type": "string"},
+    "created_by": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+  "required": ["rule_id", "domain", "rule_type", "description", "conditions", "actions"]
+}
