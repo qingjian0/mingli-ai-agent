@@ -1,5 +1,5 @@
 
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 PALACES = {
     "命宫": {"position": 0, "description": "生命核心"},
