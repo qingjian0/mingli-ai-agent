@@ -21,7 +21,7 @@ langchain-community==0.2.12
 openai==1.45.0
 
 # Date/time handling
-datetime==5.5
+# datetime 是 Python 标准库，无需安装
 lunardate==0.2.0
 ephem==4.1.5
 
