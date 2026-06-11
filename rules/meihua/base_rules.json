@@ -1,0 +1,47 @@
+
+{
+    "version": "1.0.0",
+    "domain": "meihua",
+    "source": "《梅花易数》",
+    "rules": [
+        {
+            "rule_id": "meihua.bagua",
+            "name": "八卦基本",
+            "description": "八卦基础信息",
+            "priority": 100,
+            "content": [
+                {"name": "乾", "symbol": "☰", "element": "金", "family": "父", "nature": "健"},
+                {"name": "兑", "symbol": "☱", "element": "金", "family": "少女", "nature": "悦"},
+                {"name": "离", "symbol": "☲", "element": "火", "family": "中女", "nature": "丽"},
+                {"name": "震", "symbol": "☳", "element": "木", "family": "长男", "nature": "动"},
+                {"name": "巽", "symbol": "☴", "element": "木", "family": "长女", "nature": "入"},
+                {"name": "坎", "symbol": "☵", "element": "水", "family": "中男", "nature": "陷"},
+                {"name": "艮", "symbol": "☶", "element": "土", "family": "少男", "nature": "止"},
+                {"name": "坤", "symbol": "☷", "element": "土", "family": "母", "nature": "顺"}
+            ]
+        },
+        {
+            "rule_id": "meihua.tiyong",
+            "name": "体用关系",
+            "description": "梅花易数体用关系判断",
+            "priority": 100,
+            "content": {
+                "体克用": "吉，先难后易",
+                "体生用": "耗，宜守成",
+                "体用比和": "大吉，诸事顺遂",
+                "用克体": "凶，须防灾害",
+                "用生体": "亨，事半功倍"
+            }
+        },
+        {
+            "rule_id": "meihua.wuxing",
+            "name": "五行生克",
+            "description": "八卦五行生克关系",
+            "priority": 100,
+            "content": {
+                "相生": "木生火，火生土，土生金，金生水，水生木",
+                "相克": "木克土，土克水，水克火，火克金，金克木"
+            }
+        }
+    ]
+}

@@ -1,0 +1,333 @@
+pipeline:
+  name: MingLi-AI-Agent CI Pipeline
+  identifier: mingli_ci_pipeline
+  projectIdentifier: mingli_ai_agent
+  orgIdentifier: default
+  tags:
+    project: mingli-ai-agent
+    tech: python-nextjs
+    domain: fortune-telling
+
+  variables:
+    - name: DOCKER_REGISTRY
+      type: String
+      value: registry.hub.docker.com
+      fixed: true
+    - name: DOCKERHUB_USERNAME
+      type: String
+      value: <+secrets.getValue('dockerhub_username')>
+      fixed: true
+    - name: BACKEND_IMAGE
+      type: String
+      value: mingli-ai-agent-api
+      fixed: true
+    - name: FRONTEND_IMAGE
+      type: String
+      value: mingli-ai-agent-frontend
+      fixed: true
+
+  stages:
+    - stage:
+        name: Backend Tests
+        identifier: backend_tests
+        description: Python 后端多版本测试 — pytest 单元测试 + 集成测试
+        type: CI
+
+        spec:
+          cloneCodebase: true
+          codebase:
+            connector: <+codebase.connector>
+            repo: <+codebase.repo>
+            build: <+codebase.branch>
+
+          platform:
+            os: Linux
+            arch: Amd64
+
+          runtime:
+            type: Cloud
+            spec: {}
+
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install Python Dependencies
+                  identifier: backend_install_deps
+                  spec:
+                    shell: Sh
+                    command: |
+                      python -m pip install --upgrade pip
+                      pip install -r requirements.txt
+                      pip install pytest pytest-asyncio httpx
+                    envVariables:
+                      PIP_CACHE_DIR: /harness/pipeline/cache/pip
+
+              - step:
+                  type: Run
+                  name: Unit Tests (Python 3.11)
+                  identifier: backend_unit_tests
+                  spec:
+                    shell: Sh
+                    command: |
+                      export PYTHONPATH=/workspace
+                      pytest tests/unit/ -v --tb=short
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - reports/junit.xml
+                    cacheEnable: true
+                    envVariables:
+                      PYTHONPATH: /workspace
+
+              - step:
+                  type: Run
+                  name: Integration Tests
+                  identifier: backend_integration_tests
+                  spec:
+                    shell: Sh
+                    command: |
+                      export PYTHONPATH=/workspace
+                      pytest tests/integration/ -v --tb=short
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - reports/integration-junit.xml
+
+          caching:
+            paths:
+              - /harness/pipeline/cache/pip
+
+    - stage:
+        name: Frontend Build
+        identifier: frontend_build
+        description: Next.js 前端依赖安装、Lint 检查与生产构建
+        type: CI
+        dependencies:
+          - identifier: backend_tests
+            type: Stage
+            condition: success
+
+        spec:
+          cloneCodebase: true
+          codebase:
+            connector: <+codebase.connector>
+            repo: <+codebase.repo>
+            build: <+codebase.branch>
+
+          platform:
+            os: Linux
+            arch: Amd64
+
+          runtime:
+            type: Cloud
+            spec: {}
+
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install Node Dependencies
+                  identifier: frontend_install_deps
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd frontend
+                      npm install --no-audit --no-fund
+                    envVariables:
+                      NODE_OPTIONS: --max_old_space_size=4096
+
+              - step:
+                  type: Run
+                  name: ESLint Check
+                  identifier: frontend_lint
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd frontend
+                      npm run lint --if-present || echo "No lint script configured"
+                    onFailure:
+                      type: Ignore
+                      spec: {}
+
+              - step:
+                  type: Run
+                  name: Next.js Production Build
+                  identifier: frontend_build
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd frontend
+                      npm run build
+                    outputs:
+                      - name: build_output
+                        type: Directory
+                        path: .next
+
+              - step:
+                  type: SaveCache
+                  name: Save Frontend Cache
+                  identifier: frontend_save_cache
+                  spec:
+                    key: frontend-node-modules-v3
+                    paths:
+                      - frontend/node_modules
+                    archiveLimit: 10GB
+
+          caching:
+            paths:
+              - frontend/node_modules
+
+    - stage:
+        name: Security Scan
+        identifier: security_scan
+        description: Python 代码安全扫描 — Bandit 检测常见安全漏洞
+        type: CI
+        dependencies:
+          - identifier: backend_tests
+            type: Stage
+            condition: success
+
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install Bandit
+                  identifier: install_bandit
+                  spec:
+                    shell: Sh
+                    command: |
+                      pip install bandit bandit-sarif-json
+
+              - step:
+                  type: Run
+                  name: Bandit Security Scan
+                  identifier: bandit_scan
+                  spec:
+                    shell: Sh
+                    command: |
+                      bandit -r src/ -f json -o bandit-report.json || true
+                    reports:
+                      - type: Sarif
+                        spec:
+                          paths:
+                            - bandit-report.json
+                          category: Security
+
+              - step:
+                  type: Run
+                  name: OWASP Dependency Check
+                  identifier: safety_check
+                  spec:
+                    shell: Sh
+                    command: |
+                      pip install safety || true
+                      safety check --json --output safety-report.json || true
+                    onFailure:
+                      type: Ignore
+                      spec: {}
+
+    - stage:
+        name: Docker Build & Push
+        identifier: docker_build_push
+        description: 构建并推送后端和前端 Docker 镜像到镜像仓库
+        type: CI
+        dependencies:
+          - identifier: frontend_build
+            type: Stage
+            condition: success
+          - identifier: security_scan
+            type: Stage
+            condition: success
+
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Set up Docker Buildx
+                  identifier: docker_setup
+                  spec:
+                    shell: Sh
+                    command: |
+                      docker buildx install
+                      docker buildx create --use
+
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build Backend Image
+                  identifier: build_backend_image
+                  spec:
+                    connector: <+secrets.getValue('dockerhub_connector')>
+                    repo: <+vars.DOCKER_REGISTRY>/<+vars.DOCKERHUB_USERNAME>/<+vars.BACKEND_IMAGE>
+                    tags:
+                      - latest
+                      - <+pipeline.sequenceId>
+                    dockerfile: docker/Dockerfile
+                    context: /
+                    buildargs:
+                      PYTHON_VERSION: "3.11"
+                    resources:
+                      limits:
+                        memory: 2Gi
+                        cpu: 2
+
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build Frontend Image
+                  identifier: build_frontend_image
+                  spec:
+                    connector: <+secrets.getValue('dockerhub_connector')>
+                    repo: <+secrets.getValue('dockerhub_username')>/<+vars.FRONTEND_IMAGE>
+                    tags:
+                      - latest
+                      - <+pipeline.sequenceId>
+                    dockerfile: frontend/Dockerfile
+                    context: /frontend
+                    resources:
+                      limits:
+                        memory: 2Gi
+                        cpu: 2
+
+              - step:
+                  type: Run
+                  name: Docker Image Cleanup
+                  identifier: docker_cleanup
+                  spec:
+                    shell: Sh
+                    command: |
+                      docker rmi <+secrets.getValue('dockerhub_username')>/<+vars.BACKEND_IMAGE>:latest || true
+                      docker rmi <+secrets.getValue('dockerhub_username')>/<+vars.FRONTEND_IMAGE>:latest || true
+                    onFailure:
+                      type: Ignore
+                      spec: {}
+
+        strategy:
+          matrix:
+            parallel: 2
+            images:
+              - name: backend
+                context: /
+                dockerfile: docker/Dockerfile
+              - name: frontend
+                context: /frontend
+                dockerfile: frontend/Dockerfile

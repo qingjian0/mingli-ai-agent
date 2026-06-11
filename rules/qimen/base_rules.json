@@ -1,0 +1,88 @@
+
+{
+    "version": "1.0.0",
+    "domain": "qimen",
+    "source": "《奇门遁甲》《烟壤经》",
+    "rules": [
+        {
+            "rule_id": "qimen.jiugong",
+            "name": "九宫八卦",
+            "description": "奇门遁甲九宫基本布局",
+            "priority": 100,
+            "content": {
+                "1": "坎一宫",
+                "2": "坤二宫",
+                "3": "震三宫",
+                "4": "巽四宫",
+                "5": "中五宫",
+                "6": "乾六宫",
+                "7": "兑七宫",
+                "8": "艮八宫",
+                "9": "离九宫"
+            }
+        },
+        {
+            "rule_id": "qimen.bamen",
+            "name": "八门",
+            "description": "奇门遁甲八门基本信息",
+            "priority": 100,
+            "content": [
+                {"name": "休门", "description": "吉门"},
+                {"name": "生门", "description": "吉门"},
+                {"name": "伤门", "description": "凶门"},
+                {"name": "杜门", "description": "平门"},
+                {"name": "景门", "description": "吉门"},
+                {"name": "死门", "description": "凶门"},
+                {"name": "惊门", "description": "凶门"},
+                {"name": "开门", "description": "吉门"}
+            ]
+        },
+        {
+            "rule_id": "qimen.jiuxing",
+            "name": "九星",
+            "description": "奇门遁甲九星基本信息",
+            "priority": 100,
+            "content": [
+                {"name": "天蓬", "description": "贪狼星"},
+                {"name": "天芮", "description": "巨门星"},
+                {"name": "天冲", "description": "禄存星"},
+                {"name": "天辅", "description": "文曲星"},
+                {"name": "天禽", "description": "廉贞星"},
+                {"name": "天心", "description": "武曲星"},
+                {"name": "天柱", "description": "破军星"},
+                {"name": "天任", "description": "左辅星"},
+                {"name": "天英", "description": "右弼星"}
+            ]
+        },
+        {
+            "rule_id": "qimen.bashen",
+            "name": "八神",
+            "description": "奇门遁甲八神基本信息",
+            "priority": 100,
+            "content": [
+                {"name": "值符", "description": "天乙"},
+                {"name": "螣蛇", "description": "虚诈"},
+                {"name": "太阴", "description": "荫佑"},
+                {"name": "六合", "description": "护持"},
+                {"name": "白虎", "description": "刑伤"},
+                {"name": "玄武", "description": "小盗"},
+                {"name": "九地", "description": "坚牢"},
+                {"name": "九天", "description": "威悍"}
+            ]
+        },
+        {
+            "rule_id": "qimen.pan.yang",
+            "name": "阳遁",
+            "description": "阳遁九局布局规则",
+            "priority": 90,
+            "content": "冬至后用阳遁"
+        },
+        {
+            "rule_id": "qimen.pan.yin",
+            "name": "阴遁",
+            "description": "阴遁九局布局规则",
+            "priority": 90,
+            "content": "夏至后用阴遁"
+        }
+    ]
+}

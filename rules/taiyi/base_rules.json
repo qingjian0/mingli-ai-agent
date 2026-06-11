@@ -1,0 +1,61 @@
+
+{
+    "version": "1.0.0",
+    "domain": "taiyi",
+    "source": "《太乙数精义》《太乙遁甲秘典》",
+    "rules": [
+        {
+            "rule_id": "taiyi.jugong",
+            "name": "九宫定位",
+            "description": "太乙九宫基本定位",
+            "priority": 100,
+            "content": [
+                {"name": "一宫坎", "position": 1, "element": "水"},
+                {"name": "二宫坤", "position": 2, "element": "土"},
+                {"name": "三宫震", "position": 3, "element": "木"},
+                {"name": "四宫巽", "position": 4, "element": "木"},
+                {"name": "五宫中", "position": 5, "element": "土"},
+                {"name": "六宫乾", "position": 6, "element": "金"},
+                {"name": "七宫兑", "position": 7, "element": "金"},
+                {"name": "八宫艮", "position": 8, "element": "土"},
+                {"name": "九宫离", "position": 9, "element": "火"}
+            ]
+        },
+        {
+            "rule_id": "taiyi.wenwang",
+            "name": "文王排避",
+            "description": "太乙神数十神排避",
+            "priority": 100,
+            "content": [
+                {"name": "太乙", "description": "天帝"},
+                {"name": "文昌", "description": "文星"},
+                {"name": "始击", "description": "飞星"},
+                {"name": "文曲", "description": "财星"},
+                {"name": "计都", "description": "凶星"},
+                {"name": "青龙", "description": "吉星"},
+                {"name": "螣蛇", "description": "虚星"},
+                {"name": "太阴", "description": "荫星"},
+                {"name": "白虎", "description": "凶星"},
+                {"name": "玄武", "description": "盗星"}
+            ]
+        },
+        {
+            "rule_id": "taiyi.yuan",
+            "name": "三元",
+            "description": "太乙三元九局",
+            "priority": 95,
+            "content": {
+                "上元": "甲子至癸亥",
+                "中元": "甲子至癸亥",
+                "下元": "甲子至癸亥"
+            }
+        },
+        {
+            "rule_id": "taiyi.jushu",
+            "name": "局数",
+            "description": "太乙七十二局",
+            "priority": 90,
+            "content": "太乙有阴阳七十二局，阳三十六局，阴三十六局"
+        }
+    ]
+}

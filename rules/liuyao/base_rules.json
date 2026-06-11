@@ -1,0 +1,56 @@
+
+{
+    "version": "1.0.0",
+    "domain": "liuyao",
+    "source": "《周易》《六爻占筮详解》",
+    "rules": [
+        {
+            "rule_id": "liuyao.liuqin",
+            "name": "六亲",
+            "description": "六爻六亲基本关系",
+            "priority": 100,
+            "content": [
+                {"name": "父母", "description": "文书、长辈、信息"},
+                {"name": "兄弟", "description": "同辈、破财、阻隔"},
+                {"name": "子孙", "description": "福德、医药、解忧"},
+                {"name": "妻财", "description": "钱财、妻妾、物资"},
+                {"name": "官鬼", "description": "官非、疾病、名望"}
+            ]
+        },
+        {
+            "rule_id": "liuyao.liushen",
+            "name": "六神",
+            "description": "六神基本属性",
+            "priority": 100,
+            "content": [
+                {"name": "青龙", "description": "喜庆、财福、东方"},
+                {"name": "朱雀", "description": "文书、口舌、南方"},
+                {"name": "勾陈", "description": "田土、牢狱、中央"},
+                {"name": "螣蛇", "description": "虚惊、怪异、南方"},
+                {"name": "白虎", "description": "丧亡、凶伤、西方"},
+                {"name": "玄武", "description": "暗昧、盗贼、北方"}
+            ]
+        },
+        {
+            "rule_id": "liuyao.yao.动",
+            "name": "动爻",
+            "description": "动爻判断规则",
+            "priority": 95,
+            "content": "动则变，变则通，动爻为主，静爻为辅"
+        },
+        {
+            "rule_id": "liuyao.yuejian",
+            "name": "月建",
+            "description": "月建对六爻影响",
+            "priority": 95,
+            "content": "月建司一月之权，能生克冲合六爻"
+        },
+        {
+            "rule_id": "liuyao.rijian",
+            "name": "日辰",
+            "description": "日辰对六爻影响",
+            "priority": 95,
+            "content": "日辰为六爻之主宰，司四时之旺相"
+        }
+    ]
+}

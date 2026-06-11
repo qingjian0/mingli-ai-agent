@@ -1,0 +1,36 @@
+
+app:
+  name: MingLi-AI-Agent
+  version: 0.1.0
+  debug: false
+  docs_url: /docs
+  redoc_url: /redoc
+
+api:
+  prefix: /api/v1
+  rate_limit:
+    max_requests: 1000
+    window_seconds: 3600
+
+database:
+  pool_size: 10
+  max_overflow: 20
+  echo: false
+
+redis:
+  timeout: 5
+  max_connections: 10
+
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  temperature: 0.1
+  max_tokens: 4096
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+security:
+  token_expire_minutes: 30
+  bcrypt_rounds: 12
