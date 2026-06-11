@@ -3,7 +3,6 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from ..engines import BaziEngine, ZiweiEngine, QimenEngine, LiurenEngine, MeihuaEngine, LiuyaoEngine, TaiyiEngine
 from ..persistence.models.computation import ComputationRequest, ComputationStep
-from ..persistence.models.audit import AuditLog
 from ..core.exceptions import CalculationException, NotFoundException
 from ..config import settings
 
