@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: DockerRegistry
+url: https://registry.hub.docker.com
+spec:
+  auth:
+    type: PersonalAccessToken
+    spec:
+      username: <+secrets.getValue('dockerhub_username')>
+      tokenRef: <+secrets.getValue('dockerhub_pat')>

@@ -1,0 +1,11 @@
+harnessApiVersion: '1.0'
+type: Github
+url: https://github.com
+spec:
+  authentication:
+    type: PersonalAccessToken
+    spec:
+      tokenRef: <+secrets.getValue('github_pat')>
+  validationRepo: true
+  delegateSelectors:
+    - <+input>

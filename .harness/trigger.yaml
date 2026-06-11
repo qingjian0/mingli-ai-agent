@@ -1,0 +1,37 @@
+trigger:
+  name: Git Push Trigger
+  identifier: git_push_trigger
+  enabled: true
+  projectIdentifier: mingli_ai_agent
+  orgIdentifier: default
+
+  source:
+    type: Webhook
+    spec:
+      type: Github
+
+  triggerCondition:
+    type: CodebaseChanged
+
+  pipelineInputVariables:
+    - name: DOCKER_REGISTRY
+      value: registry.hub.docker.com
+    - name: DOCKERHUB_USERNAME
+      value: <+secrets.getValue('dockerhub_username')>
+    - name: BACKEND_IMAGE
+      value: mingli-ai-agent-api
+    - name: FRONTEND_IMAGE
+      value: mingli-ai-agent-frontend
+
+  actions:
+    - when:
+        type: Push
+        events:
+          - type: PUSH
+            branches:
+              include:
+                - main
+                - develop
+      pipelineInputVariables:
+        - name: source_branch
+          value: <+trigger.payload.pull_request.head.ref>
